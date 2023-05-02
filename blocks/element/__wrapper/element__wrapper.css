@@ -1,0 +1,8 @@
+.element__wrapper {
+  display: flex;
+  justify-content: space-between;
+  max-width: 246px;
+  margin-left: 21px;
+  margin-top: 25px;
+  margin-right: 15px;
+}
