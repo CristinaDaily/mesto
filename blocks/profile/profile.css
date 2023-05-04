@@ -1,7 +1,7 @@
 .profile {
   display: grid;
   grid-template-columns: 120px max-content 1fr;
-  grid-template-areas: "avatar info button";
+  grid-template-areas: 'avatar info button';
   align-items: center;
   gap: 30px;
 }
@@ -17,11 +17,10 @@
   .profile {
     min-width: 282px;
     justify-items: center;
-    grid-template-rows: repeat(3, 1fr);
     grid-template-columns: 1fr;
     grid-template-areas:
-      "avatar"
-      "info"
-      "button";
+      'avatar'
+      'info'
+      'button';
   }
 }
