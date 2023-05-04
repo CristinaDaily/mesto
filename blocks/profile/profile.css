@@ -17,7 +17,7 @@
   .profile {
     min-width: 282px;
     justify-items: center;
-    grid-template-rows: repeat(3, 1ft);
+    grid-template-rows: repeat(3, 1fr);
     grid-template-columns: 1fr;
     grid-template-areas:
       "avatar"
