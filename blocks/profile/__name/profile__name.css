@@ -7,6 +7,10 @@
   line-height: 48px;
   margin: 0;
   box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 336px;
 }
 
 @media (max-width: 700px) {
