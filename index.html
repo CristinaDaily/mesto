@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./pages/index.css" />
     <title>Project Mesto</title>
   </head>
-  <body class="black-background">
+  <body class="body">
     <div class="page">
       <header class="header">
         <img src="./images/header-logo.svg" alt="Лого" class="header__logo" />
@@ -22,10 +22,18 @@
           />
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button type="button" class="profile__edit-button button"></button>
+            <button
+              type="button"
+              aria-label="edit button"
+              class="profile__edit-button button"
+            ></button>
             <p class="profile__occupation">Исследователь океана</p>
           </div>
-          <button type="button" class="profile__add-button button"></button>
+          <button
+            type="button"
+            aria-label="add button"
+            class="profile__add-button button"
+          ></button>
         </section>
         <section class="elements">
           <article class="element">
@@ -101,13 +109,14 @@
       </footer>
       <div class="popup">
         <div class="popup__container">
-          <img
-            src="./images/CloseIcon.svg"
-            alt="Иконка закрытия всплывающего окна"
+          <button
+            type="button"
+            aria-label="close"
             class="popup__close"
-          />
+          ></button>
+
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form class="popup__form" method="get">
+          <form class="popup__form" method="get" name="edit-profile">
             <input
               type="text"
               name="name"

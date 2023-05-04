@@ -6,4 +6,10 @@
   width: 22px;
   height: 19px;
   align-self: center;
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+
+.element__like-btn:hover {
+  opacity: 0.5;
 }
