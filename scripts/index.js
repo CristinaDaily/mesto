@@ -16,9 +16,6 @@ const openPopup = function (popupToOpen) {
 
 const closePopup = function (popupToClose) {
   popupToClose.classList.remove('popup_opened');
-
-  profileName.textContent = nameInput.value;
-  profileOccupation.textContent = jobInput.value;
 };
 
 //Откытие поп-ап через кнопку релдактирование
@@ -34,6 +31,9 @@ popupCloseButton.addEventListener('click', () => {
 //Обработчик «отправки» формы
 function handleFormSubmit(evt) {
   evt.preventDefault();
+
+  profileName.textContent = nameInput.value;
+  profileOccupation.textContent = jobInput.value;
   closePopup(popup);
 }
 
