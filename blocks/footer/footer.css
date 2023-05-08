@@ -9,6 +9,7 @@
 @media (max-width: 767px) {
   .footer {
     padding-top: 48px;
+    padding-bottom: 36px;
     line-height: 36px;
     width: calc(100% - 38px);
   }
