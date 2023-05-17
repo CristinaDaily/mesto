@@ -36,7 +36,7 @@
           ></button>
         </section>
         <section class="elements">
-          <article class="element">
+          <!-- <article class="element">
             <img
               src="./images/karachevskv2.jpg"
               alt="Фотография локации Карачевск"
@@ -101,7 +101,7 @@
               <h2 class="element__place-name">Карачаево Черкессия</h2>
               <button type="button" class="element__like-btn button"></button>
             </div>
-          </article>
+          </article> -->
         </section>
       </main>
       <footer class="footer">
@@ -136,6 +136,15 @@
         </div>
       </div>
     </div>
+    <template id="element-template">
+      <article class="element">
+        <img class="element__image" />
+        <div class="element__wrapper">
+          <h2 class="element__place-name"></h2>
+          <button type="button" class="element__like-btn button"></button>
+        </div>
+      </article>
+    </template>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
