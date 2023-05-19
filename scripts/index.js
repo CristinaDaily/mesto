@@ -16,7 +16,6 @@ const popupAddCard = document.querySelector('.popup_type_card');
 const popupCloseCardBtn = document.querySelector('.popup__close_type_card');
 const cardPopupForm = document.querySelector('.popup__form_type_card');
 const elementTemplate = document.querySelector('#element-template').content;
-
 const initialCards = [
   {
     name: 'Архыз',
@@ -44,8 +43,9 @@ const initialCards = [
   },
 ];
 
-// Add 6 initial card
-const createCard = (link, place) => {
+// Действия с карточками
+const renderCard = (link, place) => {
+  //Add 6 initial card
   const element = elementTemplate.querySelector('.element').cloneNode(true);
   element.querySelector('.element__image').src = link;
   element.querySelector('.element__place-name').textContent = place;
@@ -58,12 +58,21 @@ const createCard = (link, place) => {
       const eventTarget = event.target;
       eventTarget.classList.toggle('element__like-btn_active');
     });
+
+  //Удаление
+  document
+    .querySelector('.element__delete-btn')
+    .addEventListener('click', () => {
+      const trashBtn = document.querySelector('.element__delete-btn');
+      const cardToRemove = trashBtn.closest('.element');
+      cardToRemove.remove();
+    });
 };
 
 initialCards.forEach((item) => {
   const link = item.link;
   const place = item.name;
-  createCard(link, place);
+  renderCard(link, place);
 });
 
 const openPopup = function (popupToOpen) {
@@ -114,7 +123,7 @@ function handleCardSubmit(evt) {
 
   const place = placeInput.value;
   const link = linkInput.value;
-  createCard(link, place);
+  renderCard(link, place);
   closePopup(popupAddCard);
 }
 
