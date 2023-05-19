@@ -14,6 +14,8 @@ const elements = document.querySelector('.elements');
 const addButton = document.querySelector('.profile__add-button');
 const popupAddCard = document.querySelector('.popup_type_card');
 const popupCloseCardBtn = document.querySelector('.popup__close_type_card');
+const cardPopupForm = document.querySelector('.popup__form_type_card');
+const elementTemplate = document.querySelector('#element-template').content;
 
 const initialCards = [
   {
@@ -42,14 +44,26 @@ const initialCards = [
   },
 ];
 
-// Add 6 initial cards
-initialCards.forEach((item) => {
-  const elementTemplate = document.querySelector('#element-template').content;
+// Add 6 initial card
+const createCard = (link, place) => {
   const element = elementTemplate.querySelector('.element').cloneNode(true);
-  element.querySelector('.element__image').src = item.link;
-  element.querySelector('.element__place-name').textContent = item.name;
+  element.querySelector('.element__image').src = link;
+  element.querySelector('.element__place-name').textContent = place;
+  elements.prepend(element);
 
-  elements.append(element);
+  //Лайк карточки
+  document
+    .querySelector('.element__like-btn')
+    .addEventListener('click', (event) => {
+      const eventTarget = event.target;
+      eventTarget.classList.toggle('element__like-btn_active');
+    });
+};
+
+initialCards.forEach((item) => {
+  const link = item.link;
+  const place = item.name;
+  createCard(link, place);
 });
 
 const openPopup = function (popupToOpen) {
@@ -95,7 +109,13 @@ function handleFormSubmit(evt) {
 formElement.addEventListener('submit', handleFormSubmit);
 
 //Обработчик добавления карточки
-
 function handleCardSubmit(evt) {
   evt.preventDefault();
+
+  const place = placeInput.value;
+  const link = linkInput.value;
+  createCard(link, place);
+  closePopup(popupAddCard);
 }
+
+cardPopupForm.addEventListener('submit', handleCardSubmit);
