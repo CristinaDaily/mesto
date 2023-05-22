@@ -70,6 +70,7 @@ const renderCard = (link, place) => {
   const placeElement = element.querySelector('.element__place-name');
   imageElement.src = link;
   placeElement.textContent = place;
+  imageElement.alt = place;
   elements.prepend(element);
 
   document
