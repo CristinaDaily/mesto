@@ -16,6 +16,11 @@ const popupAddCard = document.querySelector('.popup_type_card');
 const popupCloseCardBtn = document.querySelector('.popup__close_type_card');
 const cardPopupForm = document.querySelector('.popup__form_type_card');
 const elementTemplate = document.querySelector('#element-template').content;
+const popupTypeImage = document.querySelector('.popup_type_image');
+const popupImage = document.querySelector('.popup__image');
+const popupImageTitle = document.querySelector('.popup__img-title');
+const popupCloseImageBtn = document.querySelector('.popup__close_type_image');
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -47,8 +52,10 @@ const initialCards = [
 const renderCard = (link, place) => {
   //Add 6 initial card
   const element = elementTemplate.querySelector('.element').cloneNode(true);
-  element.querySelector('.element__image').src = link;
-  element.querySelector('.element__place-name').textContent = place;
+  const imageElement = element.querySelector('.element__image');
+  const placeElement = element.querySelector('.element__place-name');
+  imageElement.src = link;
+  placeElement.textContent = place;
   elements.prepend(element);
 
   //Лайк карточки
@@ -67,6 +74,19 @@ const renderCard = (link, place) => {
       const cardToRemove = trashBtn.closest('.element');
       cardToRemove.remove();
     });
+
+  //Открытие
+  imageElement.addEventListener('click', () => {
+    openPopup(popupTypeImage);
+    popupImageTitle.textContent = place;
+    popupImage.src = link;
+    popupImage.alt = place;
+  });
+
+  // Закрытие image попап
+  popupCloseImageBtn.addEventListener('click', () => {
+    closePopup(popupTypeImage);
+  });
 };
 
 initialCards.forEach((item) => {
