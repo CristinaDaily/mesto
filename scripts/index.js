@@ -20,6 +20,7 @@ const popupTypeImage = document.querySelector('.popup_type_image');
 const popupImage = document.querySelector('.popup__image');
 const popupImageTitle = document.querySelector('.popup__img-title');
 const popupCloseImageBtn = document.querySelector('.popup__close_type_image');
+const likeBtn = document.querySelector('.element__like-btn');
 
 const initialCards = [
   {
@@ -48,6 +49,19 @@ const initialCards = [
   },
 ];
 
+//Лайк карточки
+const likeCard = (event) => {
+  const eventTarget = event.target;
+  eventTarget.classList.toggle('element__like-btn_active');
+};
+
+//Удаление карточки
+const deleteCard = (evt) => {
+  const trashBtn = document.querySelector('.element__delete-btn');
+  const cardToRemove = trashBtn.closest('.element');
+  cardToRemove.remove();
+};
+
 // Действия с карточками
 const renderCard = (link, place) => {
   //Add 6 initial card
@@ -58,25 +72,16 @@ const renderCard = (link, place) => {
   placeElement.textContent = place;
   elements.prepend(element);
 
-  //Лайк карточки
   document
     .querySelector('.element__like-btn')
-    .addEventListener('click', (event) => {
-      const eventTarget = event.target;
-      eventTarget.classList.toggle('element__like-btn_active');
-    });
+    .addEventListener('click', likeCard);
 
-  //Удаление
   document
     .querySelector('.element__delete-btn')
-    .addEventListener('click', () => {
-      const trashBtn = document.querySelector('.element__delete-btn');
-      const cardToRemove = trashBtn.closest('.element');
-      cardToRemove.remove();
-    });
+    .addEventListener('click', deleteCard);
 
   //Открытие
-  imageElement.addEventListener('click', () => {
+  imageElement.addEventListener('click', (evt) => {
     openPopup(popupTypeImage);
     popupImageTitle.textContent = place;
     popupImage.src = link;

@@ -3,7 +3,7 @@
   background-image: url(../../../images/like-button.svg);
   background-repeat: no-repeat;
   background-size: contain;
-
+  cursor: pointer;
   width: 22px;
   height: 19px;
   align-self: center;
