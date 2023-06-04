@@ -7,7 +7,7 @@ const formSubmitButtonChangeState = (form) => {
     button.classList.add('popup__button_disabled');
   } else {
     button.removeAttribute('disabled');
-    button.classList.remmove('popup__button_disabled');
+    button.classList.remove('popup__button_disabled');
   }
 };
 
