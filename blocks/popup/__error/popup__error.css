@@ -5,4 +5,21 @@
   font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
+  height: 25px;
+
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+
+  margin-top: 5px;
+}
+
+.popup__error:last-of-type {
+  margin-bottom: 18px;
+}
+
+@media (max-width: 767px) {
+  .popup__error:last-of-type {
+    margin-bottom: 16px;
+  }
 }
