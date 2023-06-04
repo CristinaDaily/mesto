@@ -1,14 +1,16 @@
 import { initialCards } from './cards.js';
+import { validateInput, formSubmitButtonChangeState } from './validate.js';
+
 const editButton = document.querySelector('.profile__edit-button');
 const popupEditProfile = document.querySelector('.popup_type_profile');
 const popupCloseProfileBtn = document.querySelector(
   '.popup__close_type_profile'
 );
-const formElement = document.querySelector('.popup__form');
-const nameInput = formElement.querySelector('.popup__item_el_name');
-const jobInput = formElement.querySelector('.popup__item_el_about');
-const placeInput = document.querySelector('.popup__item_el_place');
-const linkInput = document.querySelector('.popup__item_el_link');
+const popupForm = document.querySelector('.popup__form');
+const nameInput = popupForm.querySelector('.popup__input_type_name');
+const jobInput = popupForm.querySelector('.popup__input_type_about');
+const placeInput = document.querySelector('.popup__input_type_place');
+const linkInput = document.querySelector('.popup__input_type_link');
 const profileName = document.querySelector('.profile__name');
 const profileOccupation = document.querySelector('.profile__occupation');
 const elements = document.querySelector('.elements');
@@ -101,6 +103,12 @@ const openProfile = () => {
 //Обработчик «отправки» формы Profile
 const handleFormSubmit = function (evt) {
   evt.preventDefault();
+  const form = evt.target;
+  if (!form.checkValidity()) {
+    console.log('no good');
+  } else {
+    console.log('all good');
+  }
 
   profileName.textContent = nameInput.value;
   profileOccupation.textContent = jobInput.value;
@@ -139,6 +147,17 @@ popupCloseCardBtn.addEventListener('click', () => {
   closePopup(popupAddCard);
 });
 
-// формы
-formElement.addEventListener('submit', handleFormSubmit);
+// слушатели
+popupForm.addEventListener(
+  'input',
+  (evt) => {
+    const input = evt.target;
+    const form = evt.currentTarget;
+    console.log(evt);
+    validateInput(input);
+    formSubmitButtonChangeState(form);
+  },
+  true
+);
+popupForm.addEventListener('submit', handleFormSubmit);
 cardPopupForm.addEventListener('submit', handleCardSubmit);

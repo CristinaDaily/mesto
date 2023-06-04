@@ -116,22 +116,34 @@
           ></button>
 
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form class="popup__form" method="get" name="edit-profile">
+          <form class="popup__form" method="get" name="edit-profile" novalidate>
             <input
               type="text"
               name="name"
               value="Жак-Ив Кусто"
               placeholder="Имя"
-              class="popup__item popup__item_el_name"
+              class="popup__input popup__input_type_name"
+              id="name-input"
+              required
+              minlength="2"
+              maxlength="40"
             />
+            <span class="name-input-error popup__error"></span>
             <input
               type="text"
               name="about"
               value="Исследователь океана"
               placeholder="o себе"
-              class="popup__item popup__item_el_about"
+              class="popup__input popup__input_type_about"
+              id="about-input"
+              required
+              minlength="2"
+              maxlength="200"
             />
-            <button type="submit" class="popup__save-btn">Сохранить</button>
+            <span class="about-input-error popup__error"></span>
+            <button type="submit" class="popup__save-btn popup__button">
+              Сохранить
+            </button>
           </form>
         </div>
       </div>
@@ -149,20 +161,31 @@
             class="popup__form popup__form_type_card"
             method="get"
             name="add-card"
+            novalidate
           >
             <input
               type="text"
               name="name"
               placeholder="Название"
-              class="popup__item popup__item_el_place"
+              class="popup__input popup__input_type_place"
+              id="place-input"
+              required
+              minlength="2"
+              maxlength="30"
             />
+            <span class="place-input-error popup__error"></span>
             <input
-              type="text"
+              type="url"
               name="about"
               placeholder="Ссылка на картинку"
-              class="popup__item popup__item_el_link"
+              class="popup__input popup__input_type_link"
+              id="link-input"
+              required
             />
-            <button type="submit" class="popup__create-btn">Создать</button>
+            <span class="link-input-error popup__error"></span>
+            <button type="submit" class="popup__button popup__create-btn">
+              Создать
+            </button>
           </form>
         </div>
       </div>
