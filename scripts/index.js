@@ -17,6 +17,7 @@ const elements = document.querySelector('.elements');
 const addButton = document.querySelector('.profile__add-button');
 const popupAddCard = document.querySelector('.popup_type_card');
 const popupCloseCardBtn = document.querySelector('.popup__close_type_card');
+const profilePopupForm = document.querySelector('.popup__form_type_profile');
 const cardPopupForm = document.querySelector('.popup__form_type_card');
 const elementTemplate = document.querySelector('#element-template').content;
 const popupTypeImage = document.querySelector('.popup_type_image');
@@ -101,6 +102,27 @@ const openProfile = () => {
 };
 
 //Обработчик «отправки» формы Profile
+const sendForm = (evt) => {
+  evt.preventDefault();
+  const form = evt.target;
+  if (!form.checkValidity()) {
+    console.log('no good');
+  } else {
+    console.log('all good');
+  }
+  if ((form = profilePopupForm)) {
+    profileName.textContent = nameInput.value;
+    profileOccupation.textContent = jobInput.value;
+    closePopup(popupEditProfile);
+  } else if ((form = cardPopupForm)) {
+    const place = placeInput.value;
+    const link = linkInput.value;
+    renderCard(link, place);
+    closePopup(popupAddCard);
+  }
+};
+
+/*
 const handleFormSubmit = function (evt) {
   evt.preventDefault();
   const form = evt.target;
@@ -130,6 +152,7 @@ const handleCardSubmit = function (evt) {
   renderCard(link, place);
   closePopup(popupAddCard);
 };
+*/
 
 //Слушатели
 //закрытие image попап
@@ -192,15 +215,10 @@ const setEventListeners = () => {
 const enableValidation = () => {
   const formList = Array.from(document.querySelectorAll('.popup__form'));
   formList.forEach((formElement) => {
-    formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
+    formElement.addEventListener('submit', sendForm);
   });
 
   setEventListeners();
 };
-
-popupForm.addEventListener('submit', handleFormSubmit);
-cardPopupForm.addEventListener('submit', handleCardSubmit);
 
 enableValidation();
