@@ -1,12 +1,21 @@
+const popupFormObject = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+};
+
 const formSubmitButtonChangeState = (form) => {
-  const button = form.querySelector('.popup__button');
-  console.log(button);
+  const button = form.querySelector(popupFormObject.submitButtonSelector);
+
   if (!form.checkValidity()) {
     button.setAttribute('disabled', true);
-    button.classList.add('popup__button_disabled');
+    button.classList.add(popupFormObject.inactiveButtonClass);
   } else {
     button.removeAttribute('disabled');
-    button.classList.remove('popup__button_disabled');
+    button.classList.remove(popupFormObject.inactiveButtonClass);
   }
 };
 
@@ -15,13 +24,13 @@ const getErrorElement = (input) => {
 };
 
 const showError = (input) => {
-  input.classList.add('popup__input_type_error');
+  input.classList.add(popupFormObject.inputErrorClass);
   const errorMassage = getErrorElement(input);
   errorMassage.textContent = input.validationMessage;
 };
 const hideError = (input) => {
   const errorMassage = getErrorElement(input);
-  input.classList.remove('popup__input_type_error');
+  input.classList.remove(popupFormObject.inputErrorClass);
   errorMassage.textContent = '';
 };
 
@@ -34,4 +43,23 @@ const validateInput = (input) => {
   }
 };
 
-export { validateInput, formSubmitButtonChangeState };
+const setEventListeners = () => {
+  const popupInputList = Array.from(
+    document.querySelectorAll(popupFormObject.formSelector)
+  );
+  popupInputList.forEach((popupForm) => {
+    popupForm.addEventListener(
+      'input',
+      (evt) => {
+        const input = evt.target;
+        const form = evt.currentTarget;
+
+        validateInput(input);
+        formSubmitButtonChangeState(form);
+      },
+      true
+    );
+  });
+};
+
+export { formSubmitButtonChangeState, setEventListeners, popupFormObject };
