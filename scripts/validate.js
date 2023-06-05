@@ -1,7 +1,6 @@
-const popupForm = document.querySelector('.popup__form');
-
 const formSubmitButtonChangeState = (form) => {
-  const button = document.querySelector('.popup__button');
+  const button = form.querySelector('.popup__button');
+  console.log(button);
   if (!form.checkValidity()) {
     button.setAttribute('disabled', true);
     button.classList.add('popup__button_disabled');

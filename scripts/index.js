@@ -118,6 +118,12 @@ const handleFormSubmit = function (evt) {
 //Обработчик добавления карточки
 const handleCardSubmit = function (evt) {
   evt.preventDefault();
+  const form = evt.target;
+  if (!form.checkValidity()) {
+    console.log('no good');
+  } else {
+    console.log('all good');
+  }
 
   const place = placeInput.value;
   const link = linkInput.value;
@@ -148,16 +154,53 @@ popupCloseCardBtn.addEventListener('click', () => {
 });
 
 // слушатели
-popupForm.addEventListener(
-  'input',
-  (evt) => {
-    const input = evt.target;
-    const form = evt.currentTarget;
-    console.log(evt);
-    validateInput(input);
-    formSubmitButtonChangeState(form);
-  },
-  true
-);
+
+/*const setEventListeners = (popupForm) => {
+  const popupFormList = Array.form(document.querySelectorAll('.popup__form'));
+  popupFormList.forEach((popupForm) => {
+    popupForm.addEventListener(
+      'input',
+      (evt) => {
+        const input = evt.target;
+        const form = evt.currentTarget;
+        validateInput(input);
+        formSubmitButtonChangeState(form);
+      },
+      true
+    );
+  });
+};*/
+
+const setEventListeners = () => {
+  const popupInpuiList = Array.from(document.querySelectorAll('.popup__form'));
+  popupInpuiList.forEach((popupForm) => {
+    popupForm.addEventListener(
+      'input',
+      (evt) => {
+        const input = evt.target;
+        const form = evt.currentTarget;
+
+        validateInput(input);
+        formSubmitButtonChangeState(form);
+      },
+      true
+    );
+    formSubmitButtonChangeState(popupForm);
+  });
+};
+
+const enableValidation = () => {
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+  });
+
+  setEventListeners();
+};
+
 popupForm.addEventListener('submit', handleFormSubmit);
 cardPopupForm.addEventListener('submit', handleCardSubmit);
+
+enableValidation();
