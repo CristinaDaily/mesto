@@ -1,4 +1,4 @@
-const popupFormObject = {
+const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
@@ -7,15 +7,15 @@ const popupFormObject = {
   errorClass: 'popup__error_visible',
 };
 
-const formSubmitButtonChangeState = (form) => {
-  const button = form.querySelector(popupFormObject.submitButtonSelector);
+const formSubmitButtonChangeState = (form, config) => {
+  const button = form.querySelector(config.submitButtonSelector);
 
   if (!form.checkValidity()) {
     button.setAttribute('disabled', true);
-    button.classList.add(popupFormObject.inactiveButtonClass);
+    button.classList.add(config.inactiveButtonClass);
   } else {
     button.removeAttribute('disabled');
-    button.classList.remove(popupFormObject.inactiveButtonClass);
+    button.classList.remove(config.inactiveButtonClass);
   }
 };
 
@@ -23,29 +23,29 @@ const getErrorElement = (input) => {
   return document.querySelector(`.${input.id}-error`);
 };
 
-const showError = (input) => {
-  input.classList.add(popupFormObject.inputErrorClass);
+const showError = (input, config) => {
+  input.classList.add(config.inputErrorClass);
   const errorMassage = getErrorElement(input);
   errorMassage.textContent = input.validationMessage;
 };
-const hideError = (input) => {
+const hideError = (input, config) => {
   const errorMassage = getErrorElement(input);
-  input.classList.remove(popupFormObject.inputErrorClass);
+  input.classList.remove(config.inputErrorClass);
   errorMassage.textContent = '';
 };
 
 //Функция проверки валидности поля
-const validateInput = (input) => {
+const validateInput = (input, config) => {
   if (!input.validity.valid) {
-    showError(input);
+    showError(input, config);
   } else {
-    hideError(input);
+    hideError(input, config);
   }
 };
 
-const setEventListeners = () => {
+const setEventListeners = (config) => {
   const popupInputList = Array.from(
-    document.querySelectorAll(popupFormObject.formSelector)
+    document.querySelectorAll(config.formSelector)
   );
   popupInputList.forEach((popupForm) => {
     popupForm.addEventListener(
@@ -54,12 +54,28 @@ const setEventListeners = () => {
         const input = evt.target;
         const form = evt.currentTarget;
 
-        validateInput(input);
-        formSubmitButtonChangeState(form);
+        validateInput(input, config);
+        formSubmitButtonChangeState(form, config);
       },
       true
     );
   });
 };
 
-export { formSubmitButtonChangeState, setEventListeners, popupFormObject };
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    formSubmitButtonChangeState(formElement, config);
+  });
+
+  setEventListeners(config);
+};
+
+enableValidation(validationConfig);
+
+export {
+  formSubmitButtonChangeState,
+  setEventListeners,
+  validationConfig,
+  enableValidation,
+};

@@ -2,7 +2,8 @@ import { initialCards } from './cards.js';
 import {
   formSubmitButtonChangeState,
   setEventListeners,
-  popupFormObject,
+  validationConfig,
+  enableValidation,
 } from './validate.js';
 
 const popups = document.querySelectorAll('.popup');
@@ -29,9 +30,10 @@ const popupImageTitle = document.querySelector('.popup__img-title');
 // Создание карточки
 const createCard = (linkValue, placeValue) => {
   const element = elementTemplate.querySelector('.element').cloneNode(true);
-  element.querySelector('.element__image').src = linkValue;
+  const elementImage = element.querySelector('.element__image');
+  elementImage.src = linkValue;
   element.querySelector('.element__place-name').textContent = placeValue;
-  element.querySelector('.element__image').alt = placeValue;
+  elementImage.alt = placeValue;
 
   //Слушатель на лайк
   const likeBtn = element.querySelector('.element__like-btn');
@@ -46,7 +48,7 @@ const createCard = (linkValue, placeValue) => {
   });
 
   // Слушатель на открытие карточки
-  element.querySelector('.element__image').addEventListener('click', () => {
+  elementImage.addEventListener('click', () => {
     openImagePopup(linkValue, placeValue);
   });
 
@@ -86,10 +88,13 @@ initialCards.forEach((item) => {
 //Открытие попап
 const openPopup = function (popupToOpen) {
   popupToOpen.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupOnEsc);
+  //document.addEventListener('keydown', closePopupOnEsc);
 };
 //Закрытие попап
 const closePopup = function (popupToClose) {
   popupToClose.classList.remove('popup_opened');
+  //document.removeEventListener('keydown', closePopupOnEsc);
 };
 
 //Открытие попап профайла
@@ -100,7 +105,8 @@ const openProfile = () => {
 };
 
 //Обработчик «отправки» формы Profile
-const sendForm = (evt) => {
+
+const handleProfileSubmit = (evt) => {
   evt.preventDefault();
   const form = evt.target;
   if (!form.checkValidity()) {
@@ -108,28 +114,30 @@ const sendForm = (evt) => {
   } else {
     console.log('all good');
   }
-  if (form === profilePopupForm) {
-    profileName.textContent = nameInput.value;
-    profileOccupation.textContent = jobInput.value;
-    closePopup(popupEditProfile);
-  } else if (form === cardPopupForm) {
-    const place = placeInput.value;
-    const link = linkInput.value;
-    renderCard(link, place);
-    closePopup(popupAddCard);
-  }
+
+  profileName.textContent = nameInput.value;
+  profileOccupation.textContent = jobInput.value;
+  closePopup(popupEditProfile);
 };
 
-//Слушатели
-//open popup Profile with Edit button
-editButton.addEventListener('click', openProfile);
+const handleCardSubmit = (evt) => {
+  evt.preventDefault();
+  const form = evt.target;
+  if (!form.checkValidity()) {
+    console.log('no good');
+  } else {
+    console.log('all good');
+  }
 
-//open Add Cards popup
-addButton.addEventListener('click', () => {
-  openPopup(popupAddCard);
-});
+  const place = placeInput.value;
+  const link = linkInput.value;
+  renderCard(link, place);
+  closePopup(popupAddCard);
+  placeInput.value = '';
+  linkInput.value = '';
+};
 
-// to close popups with close button
+//close popups with close button
 popupCloseButtons.forEach((closeButton) => {
   closeButton.addEventListener('click', (evt) => {
     const popuptoClose = closeButton.closest('.popup');
@@ -145,30 +153,27 @@ const closePopupOnOvelay = (popup) => {
   });
 };
 
-const closePopupOnEsc = (popup) => {
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      closePopup(popup);
-    }
-  });
+const closePopupOnEsc = (evt) => {
+  const openedPopup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(openedPopup);
+  }
 };
 
 // to close popups on overlay and Escape
 popups.forEach((popup) => {
   closePopupOnOvelay(popup);
-  closePopupOnEsc(popup);
 });
 
-const enableValidation = () => {
-  const formList = Array.from(
-    document.querySelectorAll(popupFormObject.formSelector)
-  );
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit', sendForm);
-    formSubmitButtonChangeState(formElement);
-  });
+//EventListener
+//open popup Profile with Edit button
+editButton.addEventListener('click', openProfile);
 
-  setEventListeners();
-};
+//open Add Cards popup
+addButton.addEventListener('click', () => {
+  openPopup(popupAddCard);
+});
 
-enableValidation(popupFormObject);
+// submit for both forms
+profilePopupForm.addEventListener('submit', handleProfileSubmit);
+cardPopupForm.addEventListener('submit', handleCardSubmit);
