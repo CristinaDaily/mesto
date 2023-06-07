@@ -47,6 +47,7 @@ const setEventListeners = (config) => {
   const popupInputList = Array.from(
     document.querySelectorAll(config.formSelector)
   );
+
   popupInputList.forEach((popupForm) => {
     popupForm.addEventListener(
       'input',
@@ -72,10 +73,3 @@ const enableValidation = (config) => {
 };
 
 enableValidation(validationConfig);
-
-export {
-  formSubmitButtonChangeState,
-  setEventListeners,
-  validationConfig,
-  enableValidation,
-};

@@ -1,10 +1,4 @@
 import { initialCards } from './cards.js';
-import {
-  formSubmitButtonChangeState,
-  setEventListeners,
-  validationConfig,
-  enableValidation,
-} from './validate.js';
 
 const popups = document.querySelectorAll('.popup');
 const popupCloseButtons = document.querySelectorAll('.popup__close');
@@ -89,12 +83,11 @@ initialCards.forEach((item) => {
 const openPopup = function (popupToOpen) {
   popupToOpen.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupOnEsc);
-  //document.addEventListener('keydown', closePopupOnEsc);
 };
 //Закрытие попап
 const closePopup = function (popupToClose) {
   popupToClose.classList.remove('popup_opened');
-  //document.removeEventListener('keydown', closePopupOnEsc);
+  document.removeEventListener('keydown', closePopupOnEsc);
 };
 
 //Открытие попап профайла
@@ -108,12 +101,6 @@ const openProfile = () => {
 
 const handleProfileSubmit = (evt) => {
   evt.preventDefault();
-  const form = evt.target;
-  if (!form.checkValidity()) {
-    console.log('no good');
-  } else {
-    console.log('all good');
-  }
 
   profileName.textContent = nameInput.value;
   profileOccupation.textContent = jobInput.value;
@@ -122,19 +109,12 @@ const handleProfileSubmit = (evt) => {
 
 const handleCardSubmit = (evt) => {
   evt.preventDefault();
-  const form = evt.target;
-  if (!form.checkValidity()) {
-    console.log('no good');
-  } else {
-    console.log('all good');
-  }
 
   const place = placeInput.value;
   const link = linkInput.value;
   renderCard(link, place);
   closePopup(popupAddCard);
-  placeInput.value = '';
-  linkInput.value = '';
+  cardPopupForm.reset();
 };
 
 //close popups with close button
@@ -154,8 +134,8 @@ const closePopupOnOvelay = (popup) => {
 };
 
 const closePopupOnEsc = (evt) => {
-  const openedPopup = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
 };
