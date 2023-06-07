@@ -20,6 +20,7 @@ const elementTemplate = document.querySelector('#element-template').content;
 const popupTypeImage = document.querySelector('.popup_type_image');
 const popupImage = document.querySelector('.popup__image');
 const popupImageTitle = document.querySelector('.popup__img-title');
+const cardSaveButton = document.querySelector('.popup__create-btn');
 
 // Создание карточки
 const createCard = (linkValue, placeValue) => {
@@ -152,6 +153,9 @@ editButton.addEventListener('click', openProfile);
 //open Add Cards popup
 addButton.addEventListener('click', () => {
   openPopup(popupAddCard);
+
+  cardSaveButton.setAttribute('disabled', true);
+  cardSaveButton.classList.add('popup__button_disabled');
 });
 
 // submit for both forms
