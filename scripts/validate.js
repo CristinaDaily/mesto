@@ -7,22 +7,10 @@ const validationConfig = {
   errorClass: 'popup__error_visible',
 };
 
-//Check if any of the inputs in the form are invalid
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-};
-
 const formSubmitButtonChangeState = (form, config) => {
   const button = form.querySelector(config.submitButtonSelector);
 
-  //this solution doesnt work
-  //const inputs = form.querySelectorAll(config.inputSelector);
-  //const inputList = Array.from(inputs);
-  //const hasInvalidInputs = hasInvalidInput(inputList);
-
-  if (!form.checkValidity() /*|| hasInvalidInputs*/) {
+  if (!form.checkValidity()) {
     button.setAttribute('disabled', true);
     button.classList.add(config.inactiveButtonClass);
   } else {

@@ -156,6 +156,13 @@ addButton.addEventListener('click', () => {
 
   cardSaveButton.setAttribute('disabled', true);
   cardSaveButton.classList.add('popup__button_disabled');
+  cardPopupForm.reset();
+
+  //Сброс состояния ошибок при открытии попапа
+  const popupInputs = popupAddCard.querySelectorAll('.popup__input');
+  popupInputs.forEach((input) => {
+    hideError(input, validationConfig);
+  });
 });
 
 // submit for both forms
