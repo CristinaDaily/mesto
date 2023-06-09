@@ -42,6 +42,16 @@ const validateInput = (input, config) => {
     hideError(input, config);
   }
 };
+const removeValidationErrors = (inputs) => {
+  inputs.forEach((input) => {
+    hideError(input, validationConfig);
+  });
+};
+
+const disableSubmitButton = (button) => {
+  button.setAttribute('disabled', true);
+  button.classList.add('popup__button_disabled');
+};
 
 const setEventListeners = (config) => {
   const popupInputList = Array.from(

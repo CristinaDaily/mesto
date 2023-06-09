@@ -21,6 +21,7 @@ const popupTypeImage = document.querySelector('.popup_type_image');
 const popupImage = document.querySelector('.popup__image');
 const popupImageTitle = document.querySelector('.popup__img-title');
 const cardSaveButton = document.querySelector('.popup__create-btn');
+const popupInputs = popupAddCard.querySelectorAll('.popup__input');
 
 // Создание карточки
 const createCard = (linkValue, placeValue) => {
@@ -154,15 +155,11 @@ editButton.addEventListener('click', openProfile);
 addButton.addEventListener('click', () => {
   openPopup(popupAddCard);
 
-  cardSaveButton.setAttribute('disabled', true);
-  cardSaveButton.classList.add('popup__button_disabled');
+  disableSubmitButton(cardSaveButton);
   cardPopupForm.reset();
 
   //Сброс состояния ошибок при открытии попапа
-  const popupInputs = popupAddCard.querySelectorAll('.popup__input');
-  popupInputs.forEach((input) => {
-    hideError(input, validationConfig);
-  });
+  removeValidationErrors(popupInputs);
 });
 
 // submit for both forms
