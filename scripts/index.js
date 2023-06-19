@@ -1,4 +1,4 @@
-import { initialCards } from './cards.js';
+import { Card, initialCards } from './cards.js';
 
 const popups = document.querySelectorAll('.popup');
 const popupCloseButtons = document.querySelectorAll('.popup__close');
@@ -24,6 +24,7 @@ const cardSaveButton = document.querySelector('.popup__create-btn');
 const popupInputs = popupAddCard.querySelectorAll('.popup__input');
 
 // Создание карточки
+/*
 const createCard = (linkValue, placeValue) => {
   const element = elementTemplate.querySelector('.element').cloneNode(true);
   const elementImage = element.querySelector('.element__image');
@@ -50,16 +51,17 @@ const createCard = (linkValue, placeValue) => {
 
   return element;
 };
-
+*/
+/*
 //Лайк карточки
 const likeCard = (likeBtn) => {
   likeBtn.classList.toggle('element__like-btn_active');
-};
-
+};*/
+/*
 //Удаление карточки
 const deleteCard = (card) => {
   card.remove();
-};
+};*/
 
 //Открытие карточки
 const openImagePopup = (link, place) => {
@@ -68,7 +70,7 @@ const openImagePopup = (link, place) => {
   popupImage.src = link;
   popupImage.alt = place;
 };
-
+/*
 //Добавление карточек в разметку
 const renderCard = (link, place) => {
   //Add 6 initial card
@@ -79,6 +81,17 @@ const renderCard = (link, place) => {
 //Инициализация исходных карточек из initialCards
 initialCards.forEach((item) => {
   renderCard(item.link, item.name);
+});
+*/
+
+initialCards.forEach((item) => {
+  // Создадим экземпляр карточки
+  const card = new Card(item, '#element-template', openImagePopup);
+  // Создаём карточку и возвращаем наружу
+  const cardElement = card.generateCard();
+
+  // Добавляем в DOM
+  elements.prepend(cardElement);
 });
 
 //Открытие попап
@@ -100,7 +113,6 @@ const openProfile = () => {
 };
 
 //Обработчик «отправки» формы Profile
-
 const handleProfileSubmit = (evt) => {
   evt.preventDefault();
 
@@ -165,3 +177,5 @@ addButton.addEventListener('click', () => {
 // submit for both forms
 profilePopupForm.addEventListener('submit', handleProfileSubmit);
 cardPopupForm.addEventListener('submit', handleCardSubmit);
+
+export { openPopup, openImagePopup };
