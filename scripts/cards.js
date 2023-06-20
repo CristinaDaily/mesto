@@ -1,4 +1,3 @@
-import { openPopup, openImagePopup } from './index.js';
 const initialCards = [
   {
     name: 'Архыз',
