@@ -103,11 +103,6 @@ popups.forEach((popup) => {
   closePopupOnOvelay(popup);
 });
 
-const disableSubmitButton = (button) => {
-  button.setAttribute('disabled', true);
-  button.classList.add('popup__button_disabled');
-};
-
 // Инициализация карточек
 initialCards.forEach((item) => {
   // экземпляр карточки
@@ -178,8 +173,13 @@ const likeCard = (likeBtn) => {
 //Удаление карточки
 const deleteCard = (card) => {
   card.remove();
-};*/
+};
 
+const disableSubmitButton = (button) => {
+  button.setAttribute('disabled', true);
+  button.classList.add('popup__button_disabled');
+};
+*/
 /*
 //Добавление карточек в разметку
 const renderCard = (link, place) => {
