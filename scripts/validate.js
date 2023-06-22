@@ -21,58 +21,64 @@ class FormValidator {
     this._inputErrorClass = validationObj.inputErrorClass;
   }
 
-  _formSubmitButtonChangeState() {
+  _handleFormSubmitButtonChangeState() {
     if (!this._formElement.checkValidity()) {
-      this._button.setAttribute('disabled', true);
-      this._button.classList.add(this._inactiveButtonClass);
+      this.disableSubmitButton();
+      //this._button.setAttribute('disabled', true);
+      //this._button.classList.add(this._inactiveButtonClass);
     } else {
       this._button.removeAttribute('disabled');
       this._button.classList.remove(this._inactiveButtonClass);
     }
   }
 
-  _validateInput(inputElement) {
+  disableSubmitButton() {
+    this._button.setAttribute('disabled', true);
+    this._button.classList.add(this._inactiveButtonClass);
+  }
+
+  _handleValidateInput(inputElement) {
     if (!inputElement.validity.valid) {
-      this._showError(inputElement);
+      this._handleShowError(inputElement);
     } else {
-      this._hideError(inputElement);
+      this._handleHideError(inputElement);
     }
   }
 
-  _showError(inputElement) {
+  _handleShowError(inputElement) {
     inputElement.classList.add(this._inputErrorClass);
-    const errorMassage = this._getErrorElement(inputElement);
+    const errorMassage = this._handleGetErrorElement(inputElement);
     errorMassage.textContent = inputElement.validationMessage;
   }
 
-  _hideError(inputElement) {
-    const errorMassage = this._getErrorElement(inputElement);
+  _handleHideError(inputElement) {
+    const errorMassage = this._handleGetErrorElement(inputElement);
     inputElement.classList.remove(this._inputErrorClass);
     errorMassage.textContent = '';
   }
 
-  _getErrorElement(inputElement) {
+  _handleGetErrorElement(inputElement) {
     return document.querySelector(`.${inputElement.id}-error`);
   }
 
   removeValidationErrors(inputs) {
     inputs.forEach((input) => {
-      this._hideError(input);
+      this._handleHideError(input);
     });
   }
 
   _setEventListeners() {
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
-        this._validateInput(inputElement);
-        this._formSubmitButtonChangeState();
+        this._handleValidateInput(inputElement);
+        this._handleFormSubmitButtonChangeState();
         console.log('evt list');
       });
     });
   }
 
   enableValidation() {
-    this._formSubmitButtonChangeState();
+    this._handleFormSubmitButtonChangeState();
     this._setEventListeners();
   }
 }

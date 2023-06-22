@@ -58,14 +58,19 @@ const handleProfileSubmit = (evt) => {
   closePopup(popupEditProfile);
 };
 
+const initializeCard = (data) => {
+  const card = new Card(data, '#element-template', openImagePopup);
+  const cardElement = card.generateCard();
+  elements.prepend(cardElement);
+};
+
 const handleCardSubmit = (evt) => {
   evt.preventDefault();
 
   const name = placeInput.value;
   const link = linkInput.value;
-  const card = new Card({ link, name }, '#element-template');
-  const cardElement = card.generateCard();
-  elements.prepend(cardElement);
+  const data = { name, link };
+  initializeCard(data);
   closePopup(popupAddCard);
   cardPopupForm.reset();
 };
@@ -106,10 +111,7 @@ const disableSubmitButton = (button) => {
 // Инициализация карточек
 initialCards.forEach((item) => {
   // экземпляр карточки
-  const card = new Card(item, '#element-template', openImagePopup);
-  const cardElement = card.generateCard();
-
-  elements.prepend(cardElement);
+  initializeCard(item);
 });
 
 //экземпляр валидации для каждой формы
@@ -126,8 +128,8 @@ editButton.addEventListener('click', openProfile);
 //open Add Cards popup
 addButton.addEventListener('click', () => {
   openPopup(popupAddCard);
-
-  disableSubmitButton(cardSaveButton);
+  cardValidation.disableSubmitButton();
+  //disableSubmitButton(cardSaveButton);
   cardPopupForm.reset();
 
   //Сброс состояния ошибок при открытии попапа
