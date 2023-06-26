@@ -15,8 +15,6 @@ class FormValidator {
   _handleFormSubmitButtonChangeState() {
     if (!this._formElement.checkValidity()) {
       this.disableSubmitButton();
-      //this._button.setAttribute('disabled', true);
-      //this._button.classList.add(this._inactiveButtonClass);
     } else {
       this._button.removeAttribute('disabled');
       this._button.classList.remove(this._inactiveButtonClass);
@@ -63,7 +61,6 @@ class FormValidator {
       inputElement.addEventListener('input', () => {
         this._handleValidateInput(inputElement);
         this._handleFormSubmitButtonChangeState();
-        console.log('evt list');
       });
     });
   }
