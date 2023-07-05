@@ -1,7 +1,8 @@
-import { initialCards } from './initial-cards.js';
-import { Card } from './Сard.js';
-import { validationConfig } from './validation-config.js';
-import { FormValidator } from './FormValidator.js';
+import { initialCards } from '../utils/initial-cards.js';
+import { Card } from '../components/Сard.js';
+import { Section } from '../components/Section.js';
+import { validationConfig } from '../utils/validation-config.js';
+import { FormValidator } from '../components/FormValidator.js';
 
 const popups = document.querySelectorAll('.popup');
 const buttonsClosePopup = document.querySelectorAll('.popup__close');
@@ -59,6 +60,20 @@ const handleProfileSubmit = (evt) => {
   closePopup(popupEditProfile);
 };
 
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item, '#element-template', openImagePopup);
+      const cardElement = card.generateCard();
+      return cardElement;
+    },
+  },
+  '.elements'
+);
+
+cardList.renderItems();
+
 const renderCard = (data) => {
   const card = new Card(data, '#element-template', openImagePopup);
   const cardElement = card.generateCard();
@@ -103,13 +118,13 @@ const closePopupOnEsc = (evt) => {
 popups.forEach((popup) => {
   closePopupOnOvelay(popup);
 });
-
+/*
 // Инициализация карточек
 initialCards.forEach((item) => {
   // экземпляр карточки
   renderCard(item);
 });
-
+*/
 //экземпляр валидации для каждой формы
 const profileValidation = new FormValidator(validationConfig, profilePopupForm);
 const cardValidation = new FormValidator(validationConfig, cardPopupForm);
