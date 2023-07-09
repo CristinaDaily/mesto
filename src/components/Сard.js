@@ -1,9 +1,9 @@
 export class Card {
-  constructor(data, templateSelector, openImage) {
+  constructor(data, templateSelector, handleCardClick) {
     this._link = data.link;
     this._place = data.name;
     this._templateSelector = templateSelector;
-    this._openImage = openImage;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -28,9 +28,9 @@ export class Card {
     return this._element;
   }
 
-  _handleOpenPopup() {
-    this._openImage(this._link, this._place);
-  }
+  //_handleOpenPopup() {
+  //  this._openImage(this._link, this._place);
+  //}
 
   _handleLike() {
     this._likeBtn.classList.toggle('element__like-btn_active');
@@ -46,7 +46,7 @@ export class Card {
     this._element
       .querySelector('.element__image')
       .addEventListener('click', () => {
-        this._handleOpenPopup();
+        this._handleCardClick(this._link, this._place);
       });
 
     //Слушатель на лайк
