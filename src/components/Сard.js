@@ -28,10 +28,6 @@ export class Card {
     return this._element;
   }
 
-  //_handleOpenPopup() {
-  //  this._openImage(this._link, this._place);
-  //}
-
   _handleLike() {
     this._likeBtn.classList.toggle('element__like-btn_active');
   }
