@@ -10,14 +10,14 @@ export class PopupWithForm extends Popup {
 
   _getInputValues() {
     //create empty obj
-    this._formValues = {};
+    const formValues = {};
 
     //add to obj all inputs value
     this._inputList.forEach((input) => {
-      this._formValues[input.name] = input.value;
+      formValues[input.name] = input.value;
     });
 
-    return this._formValues;
+    return formValues;
   }
 
   setEventListeners() {
