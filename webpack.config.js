@@ -49,14 +49,14 @@ const config = {
         ],
       },
       {
-        test: /\.(eot|svg|png|jpg|gif)$/i,
+        test: /\.(svg|png|jpg|gif)$/i,
         type: 'asset',
         generator: {
           filename: 'images/[name]_[hash][ext]',
         },
       },
       {
-        test: /\.(ttf|woff|woff2)$/i,
+        test: /\.(eot|ttf|woff|woff2)$/i,
         type: 'asset',
         generator: {
           filename: 'fonts/[name]_[hash][ext]',
