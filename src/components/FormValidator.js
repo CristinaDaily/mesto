@@ -8,8 +8,8 @@ class FormValidator {
     this._button = formElement.querySelector(
       validationObj.submitButtonSelector
     );
-    this._inactiveButtonClass = validationObj.inactiveButtonClass;
-    this._inputErrorClass = validationObj.inputErrorClass;
+    this._inactiveButtonClass = this._validationObj.inactiveButtonClass;
+    this._inputErrorClass = this._validationObj.inputErrorClass;
   }
 
   _handleFormSubmitButtonChangeState() {
@@ -36,22 +36,22 @@ class FormValidator {
 
   _handleShowError(inputElement) {
     inputElement.classList.add(this._inputErrorClass);
-    const errorMassage = this._handleGetErrorElement(inputElement);
+    const errorMassage = this._GetErrorElement(inputElement);
     errorMassage.textContent = inputElement.validationMessage;
   }
 
   _handleHideError(inputElement) {
-    const errorMassage = this._handleGetErrorElement(inputElement);
+    const errorMassage = this._GetErrorElement(inputElement);
     inputElement.classList.remove(this._inputErrorClass);
     errorMassage.textContent = '';
   }
 
-  _handleGetErrorElement(inputElement) {
+  _GetErrorElement(inputElement) {
     return document.querySelector(`.${inputElement.id}-error`);
   }
 
-  removeValidationErrors(inputs) {
-    inputs.forEach((input) => {
+  removeValidationErrors() {
+    this._inputList.forEach((input) => {
       this._handleHideError(input);
     });
   }

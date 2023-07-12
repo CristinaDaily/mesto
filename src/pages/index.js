@@ -21,7 +21,6 @@ import {
 
 const openProfile = () => {
   const { name, about } = profileInfo.getUserInfo();
-  console.log({ name, about });
 
   nameInput.value = name;
   jobInput.value = about;
@@ -33,28 +32,25 @@ const handleCardClick = (link, name) => popupWithImage.open(link, name);
 
 const createCard = (data) => {
   const card = new Card(data, '#element-template', handleCardClick);
-  const cardElement = card.generateCard();
-  return cardElement;
+  return card.generateCard();
 };
 
 const cardList = new Section(
   {
     items: initialCards,
-    renderer: (item) => createCard(item),
+    renderer: createCard,
   },
   '.elements'
 );
 
 cardList.renderItems();
 
-const popupWithImage = new PopupWithImage({}, '.popup_type_image');
+const popupWithImage = new PopupWithImage('.popup_type_image');
 
 const popupEditProfile = new PopupWithForm(
   '.popup_type_profile',
   (formData) => {
-    const { name, about } = formData;
-
-    profileInfo.setUserInfo({ name, about });
+    profileInfo.setUserInfo(formData);
     popupEditProfile.close();
   }
 );
