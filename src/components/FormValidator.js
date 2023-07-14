@@ -36,17 +36,17 @@ class FormValidator {
 
   _handleShowError(inputElement) {
     inputElement.classList.add(this._inputErrorClass);
-    const errorMassage = this._GetErrorElement(inputElement);
+    const errorMassage = this._getErrorElement(inputElement);
     errorMassage.textContent = inputElement.validationMessage;
   }
 
   _handleHideError(inputElement) {
-    const errorMassage = this._GetErrorElement(inputElement);
+    const errorMassage = this._getErrorElement(inputElement);
     inputElement.classList.remove(this._inputErrorClass);
     errorMassage.textContent = '';
   }
 
-  _GetErrorElement(inputElement) {
+  _getErrorElement(inputElement) {
     return document.querySelector(`.${inputElement.id}-error`);
   }
 
