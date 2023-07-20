@@ -8,6 +8,7 @@ import { UserInfo } from '../components/UserInfo.js';
 import { Section } from '../components/Section.js';
 import { validationConfig } from '../utils/validation-config.js';
 import { FormValidator } from '../components/FormValidator.js';
+import { Api } from '../components/Api';
 import {
   buttonEdit,
   nameInput,
@@ -17,6 +18,7 @@ import {
   profilePopupForm,
   cardPopupForm,
   popupInputs,
+  profileAvatar,
 } from '../utils/constants.js';
 
 const openProfile = () => {
@@ -45,6 +47,27 @@ const cardList = new Section(
 
 cardList.renderItems();
 
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-71',
+  headers: {
+    authorization: 'b334b420-c534-4216-b0c2-8d90ef156992',
+    'Content-Type': 'application/json',
+  },
+});
+
+const loadUserInfo = () => {
+  api
+    .getUserInfo()
+    .then((data) => {
+      const { name, about, avatar } = data;
+      profileInfo.setUserInfo({ name, about });
+      profileInfo.setAvatar(data.avatar);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 const popupWithImage = new PopupWithImage('.popup_type_image');
 
 const popupEditProfile = new PopupWithForm(
@@ -68,6 +91,7 @@ popupTypeCard.setEventListeners();
 const profileInfo = new UserInfo({
   nameSelector: '.profile__name',
   aboutSelector: '.profile__occupation',
+  avatarSelector: '.profile__avatar',
 });
 
 buttonEdit.addEventListener('click', openProfile);
@@ -87,3 +111,5 @@ buttonAdd.addEventListener('click', () => {
   //Сброс состояния ошибок при открытии попапа
   cardValidation.removeValidationErrors(popupInputs);
 });
+
+loadUserInfo();
