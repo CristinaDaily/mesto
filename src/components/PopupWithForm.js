@@ -14,6 +14,7 @@ export class PopupWithForm extends Popup {
 
     //add to obj all inputs value
     this._inputList.forEach((input) => {
+      console.log(input);
       formValues[input.name] = input.value;
     });
 
