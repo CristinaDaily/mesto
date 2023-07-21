@@ -3,6 +3,8 @@ import './index.css';
 import { initialCards } from '../utils/initial-cards.js';
 import { Card } from '../components/Сard.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
+
+import { Popup } from '../components/Popup.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Section } from '../components/Section.js';
