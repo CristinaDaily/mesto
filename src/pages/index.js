@@ -67,6 +67,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     });
     profileInfo.setAvatar(userInfo.avatar);
     currentUser = userInfo._id;
+    console.log(currentUser);
 
     // Render initial cards
     cardList = new Section(
@@ -88,14 +89,37 @@ const handleCardClick = (link, name) => popupWithImage.open(link, name);
 //popupTypeConfirm.open(cardId, cardElement);
 
 //const handelDeleteClick = () => {};
+/*
+const handleCardDislike = (cardData) => {
+  api
+    .deleteLike(cardData._id)
+    .then((res) => card.updateLikes(res.likes))
+    .catch((err) => console.log(err));
+};
+
+const handleCardLike = (cardData) => {
+  api
+    .addLike(cardData._id)
+    .then((res) => card.updateLikes(res.likes))
+    .catch((err) => console.log(err));
+};*/
 
 const createCard = (cardData) => {
-  const card = new Card(
-    cardData,
-    '#element-template',
-    currentUser,
-    handleCardClick
-  );
+  const card = new Card(cardData, '#element-template', currentUser, {
+    handleCardClick,
+    handleCardLike: (cardData) => {
+      api
+        .addLike(cardData._id)
+        .then((res) => card.updateLikes(res.likes))
+        .catch((err) => console.log(err));
+    },
+    handleCardDislike: (cardData) => {
+      api
+        .deleteLike(cardData._id)
+        .then((res) => card.updateLikes(res.likes))
+        .catch((err) => console.log(err));
+    },
+  });
   return card.generateCard();
 };
 
