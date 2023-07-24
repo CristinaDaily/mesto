@@ -5,6 +5,7 @@ import { Card } from '../components/Сard.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 
 import { Popup } from '../components/Popup.js';
+import { PopupWithConformation } from '../components/PopupWithConfirmation.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Section } from '../components/Section.js';
@@ -24,6 +25,7 @@ import {
 } from '../utils/constants.js';
 
 let cardList;
+let currentUser;
 
 const openProfile = () => {
   const { name, about } = profileInfo.getUserInfo();
@@ -56,11 +58,15 @@ const api = new Api({
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userInfo, cardsData]) => {
     // Render user information
+    console.log(userInfo);
+    console.log(cardsData);
     profileInfo.setUserInfo({
       name: userInfo.name,
       about: userInfo.about,
+      currentUser: userInfo._id,
     });
     profileInfo.setAvatar(userInfo.avatar);
+    currentUser = userInfo._id;
 
     // Render initial cards
     cardList = new Section(
@@ -78,9 +84,18 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   });
 
 const handleCardClick = (link, name) => popupWithImage.open(link, name);
+//const handleDeleteConfirm = (cardId, cardElement) =>
+//popupTypeConfirm.open(cardId, cardElement);
 
-const createCard = (data) => {
-  const card = new Card(data, '#element-template', handleCardClick);
+//const handelDeleteClick = () => {};
+
+const createCard = (cardData) => {
+  const card = new Card(
+    cardData,
+    '#element-template',
+    currentUser,
+    handleCardClick
+  );
   return card.generateCard();
 };
 
@@ -124,10 +139,13 @@ const popupTypeCard = new PopupWithForm('.popup_type_card', (formData) => {
     });
 });
 
+const popupTypeConfirm = new PopupWithConformation('.popup_type_confirm');
+
 // Set event listeners for the form popups
 popupWithImage.setEventListeners();
 popupEditProfile.setEventListeners();
 popupTypeCard.setEventListeners();
+popupTypeConfirm.setEventListeners();
 
 const profileInfo = new UserInfo({
   nameSelector: '.profile__name',
