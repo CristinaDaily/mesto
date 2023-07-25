@@ -20,7 +20,7 @@ export class PopupWithConformation extends Popup {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._handelDeleteClick(this._cardItem, this._cardElement);
-      this._submitButton.textContent = 'Удаление...';
+      //this._submitButton.textContent = 'Удаление...';
     });
     super.setEventListeners();
   }

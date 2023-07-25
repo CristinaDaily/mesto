@@ -159,6 +159,9 @@ const popupEditProfile = new PopupWithForm(
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        popupEditProfile.renderLoading(false);
       });
   }
 );
@@ -169,7 +172,10 @@ const popupTypeAvatar = new PopupWithForm('.popup_type_avatar', (formData) => {
       profileInfo.setAvatar(res.avatar);
       popupTypeAvatar.close();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+    .finally(() => {
+      popupTypeAvatar.renderLoading(false);
+    });
 });
 
 const popupTypeCard = new PopupWithForm('.popup_type_card', (formData) => {
@@ -185,6 +191,9 @@ const popupTypeCard = new PopupWithForm('.popup_type_card', (formData) => {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      popupTypeCard.renderLoading(false);
     });
 });
 
