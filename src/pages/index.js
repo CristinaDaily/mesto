@@ -58,8 +58,8 @@ const api = new Api({
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userInfo, cardsData]) => {
     // Render user information
-    console.log(userInfo);
-    console.log(cardsData);
+    //console.log(userInfo);
+    //console.log(cardsData);
     profileInfo.setUserInfo({
       name: userInfo.name,
       about: userInfo.about,
@@ -67,7 +67,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     });
     profileInfo.setAvatar(userInfo.avatar);
     currentUser = userInfo._id;
-    console.log(currentUser);
+    //console.log(currentUser);
 
     // Render initial cards
     cardList = new Section(
@@ -85,6 +85,15 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   });
 
 const handleCardClick = (link, name) => popupWithImage.open(link, name);
+const handelDeleteClick = (cardItem, cardElement) => {
+  api
+    .deleteCard(cardItem._id)
+    .then(() => {
+      cardList.deleteItem(cardElement); //delete method from class Section
+      popupTypeConfirm.close();
+    })
+    .catch((err) => console.log(err));
+};
 //const handleDeleteConfirm = (cardId, cardElement) =>
 //popupTypeConfirm.open(cardId, cardElement);
 
@@ -119,6 +128,7 @@ const createCard = (cardData) => {
         .then((res) => card.updateLikes(res.likes))
         .catch((err) => console.log(err));
     },
+    handleCardDelete: popupTypeConfirm.open.bind(popupTypeConfirm),
   });
   return card.generateCard();
 };
@@ -134,7 +144,7 @@ const popupEditProfile = new PopupWithForm(
         about: formData.about,
       })
       .then((updaterInfo) => {
-        console.log('Updated user data:', updaterInfo);
+        //console.log('Updated user data:', updaterInfo);
         profileInfo.setUserInfo({
           name: updaterInfo.name,
           about: updaterInfo.about,
@@ -163,7 +173,10 @@ const popupTypeCard = new PopupWithForm('.popup_type_card', (formData) => {
     });
 });
 
-const popupTypeConfirm = new PopupWithConformation('.popup_type_confirm');
+const popupTypeConfirm = new PopupWithConformation(
+  '.popup_type_confirm',
+  handelDeleteClick
+);
 
 // Set event listeners for the form popups
 popupWithImage.setEventListeners();

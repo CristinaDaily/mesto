@@ -3,7 +3,7 @@ export class Card {
     data,
     templateSelector,
     currentUser,
-    { handleCardClick, handleCardLike, handleCardDislike }
+    { handleCardClick, handleCardLike, handleCardDislike, handleCardDelete }
   ) {
     this._data = data;
     this._link = data.link;
@@ -18,6 +18,7 @@ export class Card {
     this._handleCardClick = handleCardClick;
     this._handleCardLike = handleCardLike;
     this.handleCardDislike = handleCardDislike;
+    this.handleCardDelete = handleCardDelete;
     this._isLiked = false;
   }
 
@@ -45,7 +46,7 @@ export class Card {
     if (this._userId !== this._currentUser) {
       this._deleteBtn.style.display = 'none';
     }
-
+    //check if there are cards with my likes and toggle like button
     this._likes.forEach((like) => {
       if (like._id === this._currentUser) {
         this._isLiked = true;
@@ -117,7 +118,9 @@ export class Card {
     //Слушатель на удаление карточки
 
     this._deleteBtn.addEventListener('click', () => {
-      this._handleDelete();
+      //this._handleDelete();
+
+      this.handleCardDelete(this._data, this._element);
     });
   }
 }
