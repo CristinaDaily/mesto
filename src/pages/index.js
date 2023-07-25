@@ -22,6 +22,7 @@ import {
   cardPopupForm,
   popupInputs,
   profileAvatar,
+  avatarPopupForm,
 } from '../utils/constants.js';
 
 let cardList;
@@ -94,6 +95,12 @@ const handelDeleteClick = (cardItem, cardElement) => {
     })
     .catch((err) => console.log(err));
 };
+/*
+const handleAvatarClick = () => {
+  popupTypeAvatar.open();
+  avatarValidation.disableSubmitButton();
+  avatarValidation.removeValidationErrors(popupInputs);
+};*/
 //const handleDeleteConfirm = (cardId, cardElement) =>
 //popupTypeConfirm.open(cardId, cardElement);
 
@@ -144,7 +151,6 @@ const popupEditProfile = new PopupWithForm(
         about: formData.about,
       })
       .then((updaterInfo) => {
-        //console.log('Updated user data:', updaterInfo);
         profileInfo.setUserInfo({
           name: updaterInfo.name,
           about: updaterInfo.about,
@@ -156,6 +162,15 @@ const popupEditProfile = new PopupWithForm(
       });
   }
 );
+const popupTypeAvatar = new PopupWithForm('.popup_type_avatar', (formData) => {
+  api
+    .setAvatar(formData.link)
+    .then((res) => {
+      profileInfo.setAvatar(res.avatar);
+      popupTypeAvatar.close();
+    })
+    .catch((err) => console.log(err));
+});
 
 const popupTypeCard = new PopupWithForm('.popup_type_card', (formData) => {
   api
@@ -183,6 +198,7 @@ popupWithImage.setEventListeners();
 popupEditProfile.setEventListeners();
 popupTypeCard.setEventListeners();
 popupTypeConfirm.setEventListeners();
+popupTypeAvatar.setEventListeners();
 
 const profileInfo = new UserInfo({
   nameSelector: '.profile__name',
@@ -190,14 +206,14 @@ const profileInfo = new UserInfo({
   avatarSelector: '.profile__avatar',
 });
 
-buttonEdit.addEventListener('click', openProfile);
-
 //экземпляр валидации для каждой формы
 const profileValidation = new FormValidator(validationConfig, profilePopupForm);
 const cardValidation = new FormValidator(validationConfig, cardPopupForm);
+const avatarValidation = new FormValidator(validationConfig, avatarPopupForm);
 
 profileValidation.enableValidation();
 cardValidation.enableValidation();
+avatarValidation.enableValidation();
 
 //open Add Cards popup
 buttonAdd.addEventListener('click', () => {
@@ -206,4 +222,12 @@ buttonAdd.addEventListener('click', () => {
 
   //Сброс состояния ошибок при открытии попапа
   cardValidation.removeValidationErrors(popupInputs);
+});
+
+buttonEdit.addEventListener('click', openProfile);
+
+profileAvatar.addEventListener('click', () => {
+  popupTypeAvatar.open();
+  avatarValidation.disableSubmitButton();
+  avatarValidation.removeValidationErrors(popupInputs);
 });

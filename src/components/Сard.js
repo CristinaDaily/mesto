@@ -96,7 +96,7 @@ export class Card {
   }
 
   _handleDelete() {
-    this._element.remove();
+    //this._element.remove();
     this._element = null;
     this._elementImage = null;
     this._likeBtn = null;
@@ -119,7 +119,6 @@ export class Card {
 
     this._deleteBtn.addEventListener('click', () => {
       //this._handleDelete();
-
       this.handleCardDelete(this._data, this._element);
     });
   }
