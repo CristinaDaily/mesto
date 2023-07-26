@@ -23,6 +23,7 @@ import {
   popupInputs,
   profileAvatar,
   avatarPopupForm,
+  avatarEditBtn,
 } from '../utils/constants.js';
 
 let cardList;
@@ -235,7 +236,7 @@ buttonAdd.addEventListener('click', () => {
 
 buttonEdit.addEventListener('click', openProfile);
 
-profileAvatar.addEventListener('click', () => {
+avatarEditBtn.addEventListener('click', () => {
   popupTypeAvatar.open();
   avatarValidation.disableSubmitButton();
   avatarValidation.removeValidationErrors(popupInputs);

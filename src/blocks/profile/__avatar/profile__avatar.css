@@ -5,3 +5,7 @@
   grid-area: avatar;
   object-fit: cover;
 }
+
+.profile__avatar:hover {
+  filter: brightness(20%);
+}
