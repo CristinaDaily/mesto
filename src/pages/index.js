@@ -1,10 +1,7 @@
 import './index.css';
 
-import { initialCards } from '../utils/initial-cards.js';
 import { Card } from '../components/Сard.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
-
-import { Popup } from '../components/Popup.js';
 import { PopupWithConformation } from '../components/PopupWithConfirmation.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
@@ -17,11 +14,9 @@ import {
   nameInput,
   jobInput,
   buttonAdd,
-  popupAddCard,
   profilePopupForm,
   cardPopupForm,
   popupInputs,
-  profileAvatar,
   avatarPopupForm,
   avatarEditBtn,
 } from '../utils/constants.js';
@@ -38,17 +33,6 @@ const openProfile = () => {
   popupEditProfile.open();
 };
 
-/*
-const cardList = new Section(
-  {
-    items: [api.getInitialCards()],
-    renderer: createCard,
-  },
-  '.elements'
-);
-
-cardList.renderItems();*/
-
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-71',
   headers: {
@@ -60,8 +44,6 @@ const api = new Api({
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userInfo, cardsData]) => {
     // Render user information
-    //console.log(userInfo);
-    //console.log(cardsData);
     profileInfo.setUserInfo({
       name: userInfo.name,
       about: userInfo.about,
@@ -69,7 +51,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     });
     profileInfo.setAvatar(userInfo.avatar);
     currentUser = userInfo._id;
-    //console.log(currentUser);
 
     // Render initial cards
     cardList = new Section(
@@ -96,30 +77,6 @@ const handelDeleteClick = (cardItem, cardElement) => {
     })
     .catch((err) => console.log(err));
 };
-/*
-const handleAvatarClick = () => {
-  popupTypeAvatar.open();
-  avatarValidation.disableSubmitButton();
-  avatarValidation.removeValidationErrors(popupInputs);
-};*/
-//const handleDeleteConfirm = (cardId, cardElement) =>
-//popupTypeConfirm.open(cardId, cardElement);
-
-//const handelDeleteClick = () => {};
-/*
-const handleCardDislike = (cardData) => {
-  api
-    .deleteLike(cardData._id)
-    .then((res) => card.updateLikes(res.likes))
-    .catch((err) => console.log(err));
-};
-
-const handleCardLike = (cardData) => {
-  api
-    .addLike(cardData._id)
-    .then((res) => card.updateLikes(res.likes))
-    .catch((err) => console.log(err));
-};*/
 
 const createCard = (cardData) => {
   const card = new Card(cardData, '#element-template', currentUser, {
@@ -230,7 +187,7 @@ buttonAdd.addEventListener('click', () => {
   popupTypeCard.open(); //openPopup(popupAddCard);
   cardValidation.disableSubmitButton(); //disableSubmitButton(cardSaveButton);
 
-  //Сброс состояния ошибок при открытии попапа
+  //Reset error state when opening a popup
   cardValidation.removeValidationErrors(popupInputs);
 });
 

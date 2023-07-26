@@ -54,11 +54,6 @@ export class Card {
       }
     });
 
-    /*this._isLiked = this._likes.some((like) => {
-      //console.log(this._currentUser, like._id);
-      like._id === this._currentUser;
-    });*/
-
     this._setEventListeners();
     this._setLikeButton(!this._isLiked);
 
@@ -95,13 +90,14 @@ export class Card {
     this._isLiked = !this._isLiked;
   }
 
+  /*
   _handleDelete() {
     //this._element.remove();
     this._element = null;
     this._elementImage = null;
     this._likeBtn = null;
     this._deleteBtn = null;
-  }
+  }*/
 
   _setEventListeners() {
     //Слушатель на открытие карточки
@@ -118,7 +114,6 @@ export class Card {
     //Слушатель на удаление карточки
 
     this._deleteBtn.addEventListener('click', () => {
-      //this._handleDelete();
       this.handleCardDelete(this._data, this._element);
     });
   }

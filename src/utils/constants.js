@@ -13,6 +13,7 @@ export {
   avatarPopupForm,
   avatarEditBtn,
 };
+
 const buttonEdit = document.querySelector('.profile__edit-button');
 const popupForm = document.querySelector('.popup__form');
 const nameInput = popupForm.querySelector('.popup__input_type_name');
