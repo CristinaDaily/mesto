@@ -9,8 +9,6 @@ export class PopupWithConformation extends Popup {
   }
 
   open(cardItem, cardElement) {
-    console.log(cardItem);
-    console.log(cardElement);
     this._cardItem = cardItem; // card object
     this._cardElement = cardElement; //DOM element
     super.open();

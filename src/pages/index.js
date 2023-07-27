@@ -30,6 +30,7 @@ const openProfile = () => {
   nameInput.value = name;
   jobInput.value = about;
 
+  profileValidation.removeValidationErrors();
   popupEditProfile.open();
 };
 
@@ -55,7 +56,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     // Render initial cards
     cardList = new Section(
       {
-        items: cardsData,
+        items: cardsData.reverse(),
         renderer: createCard,
       },
       '.elements'
